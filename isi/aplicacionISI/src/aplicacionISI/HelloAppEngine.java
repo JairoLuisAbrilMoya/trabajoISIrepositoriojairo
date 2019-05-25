@@ -25,8 +25,12 @@ public class HelloAppEngine extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	public tuTiendaVJ tu_tienda = new tuTiendaVJ();
 	public instantGaming instant = new instantGaming();
-
+	public Juego j = new Juego(); 
+	
 	public String busqueda="";
+	public String edicion="";
+	public String plataforma="";
+
 	public String urlOne   = "https://www.tiendacpu.com/buscar?controller=search&orderby=position&orderway=desc&search_query=loquequieresbsucar&submit_search=";
 	public String urlTwo  = "https://www.instant-gaming.com/es/busquedas/?q=loquequieresbsucar";
 
@@ -44,8 +48,13 @@ private void print(String string) {
   public void doGet(HttpServletRequest request, HttpServletResponse response) 
       throws IOException {
 	String buscame = request.getParameter("buscame");
-	print("ESTOY AQUI");
-	print(buscame);
+	String plataforma = request.getParameter("plataforma");
+	String edicion = request.getParameter("edicion");
+	
+	request.setAttribute(buscame, j.nombre);
+	request.setAttribute(plataforma, j.plataforma);
+	request.setAttribute(buscame, j.nombre);
+
 	urlOne = urlOne.replace("loquequieresbsucar", buscame );
 	urlTwo = urlTwo.replace("loquequieresbsucar", buscame );
 

@@ -13,7 +13,7 @@ public class tuTiendaVJ {
 		print("running...");
 		print(buscame);
 		Document document= null;
-		ArrayList<Juego> juegos = new ArrayList();
+		ArrayList<Precios> juegos = new ArrayList();
 
 
 
@@ -27,7 +27,7 @@ public class tuTiendaVJ {
 			Elements titulos = document.body().select("a.product-name");
 			
 			for (int i=0; i < price.size(); i++) {
-				Juego g = new Juego();
+				Precios g = new Precios();
 				g.setNombre(titulos.get(i).text());
 				g.setPrecio(price.get(i).text());
 				juegos.add(g);

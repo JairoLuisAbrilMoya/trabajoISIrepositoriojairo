@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class Juego{
 	String nombre;
-	String descripcion;
+	String plataforma;
 	ArrayList<Precios> money = new ArrayList();
 	String precio;
 	
