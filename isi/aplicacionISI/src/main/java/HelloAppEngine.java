@@ -1,5 +1,5 @@
 import java.io.IOException;
-
+import java.util.ArrayList;
 
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -13,6 +13,8 @@ import java.io.IOException;
 import org.jsoup.nodes.Document;
 
 import aplicacionISI.scrappingTuTiendaVJ;
+import aplicacionISI.Juego;
+
 
 @WebServlet(
     name = "HelloAppEngine",
@@ -42,9 +44,14 @@ private void print(String string) {
       throws IOException {
 	String buscame = request.getParameter("buscame");
 	urlInicial = urlInicial.replace("loquequieresbsucar", "fifa" );
-	Document d = tu_tienda.tienda(urlInicial);
+	ArrayList<Juego> d = tu_tienda.tienda(urlInicial);
 	response.setContentType("text/plain;charset=UTF-8");
-	response.getWriter().print(d);
+	for(int i = 0; i < d.size(); i++) {
+		Juego j = d.get(i);
+		response.getWriter().print(j.getNombre()+"---->"+j.getPrecio()+ System.lineSeparator());
+
+	}
+//	response.getWriter().print(d);
     
     
 	}
