@@ -1,9 +1,10 @@
 package aplicacionISI;
 
 
-public class Juego{
-	String nombre;
+public class Precios{
 	String precio;
+	String url;
+	
 	
 	public void setNombre(String n) {
 		this.nombre = n;

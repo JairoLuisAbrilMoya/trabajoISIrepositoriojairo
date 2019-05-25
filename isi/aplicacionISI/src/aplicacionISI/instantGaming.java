@@ -8,12 +8,12 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.select.Elements;
 
-public class scrappingTuTiendaVJ {
+public class instantGaming {
 	public ArrayList<Juego> tienda(String buscame){
 		print("running...");
 		print(buscame);
 		Document document= null;
-		ArrayList<Juego> juegos   = new ArrayList();
+		ArrayList<Juego> juegos = new ArrayList();
 
 
 
@@ -23,8 +23,8 @@ public class scrappingTuTiendaVJ {
 			document = Jsoup.connect(buscame).get();
 			String title = document.title(); //Get title
 			print("  Title: " + title); //Print title.
-			Elements price = document.body().select("span.price.product-price"); //Get price
-			Elements titulos = document.body().select("a.product-name");
+			Elements price = document.body().select("div.price"); //Get price
+			Elements titulos = document.body().select("div.name");
 			
 			for (int i=0; i < price.size(); i++) {
 				Juego g = new Juego();
@@ -33,6 +33,9 @@ public class scrappingTuTiendaVJ {
 				juegos.add(g);
 			}
 			
+			for(int i = 0; i < juegos.size(); i++) {
+				print(juegos.get(i).getNombre());
+			}
 			
 		} catch (IOException e) {
 			e.printStackTrace();
