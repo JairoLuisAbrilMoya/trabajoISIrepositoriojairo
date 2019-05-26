@@ -2,6 +2,8 @@ package aplicacionISI;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -25,7 +27,8 @@ public class HelloAppEngine extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	public tuTiendaVJ tu_tienda = new tuTiendaVJ();
 	public instantGaming instant = new instantGaming();
-	public Juego j = new Juego(); 
+	public Juego yourGame = new Juego(); 
+	public ArrayList<Precios>theMoney = new ArrayList();
 	
 	public String busqueda="";
 	public String edicion="";
@@ -51,37 +54,37 @@ private void print(String string) {
 	String plataforma = request.getParameter("plataforma");
 	String edicion = request.getParameter("edicion");
 	
-	request.setAttribute(buscame, j.nombre);
-	request.setAttribute(plataforma, j.plataforma);
-	request.setAttribute(buscame, j.nombre);
+	yourGame.setNombre(buscame);
+	yourGame.setPlataforma(plataforma);
+	yourGame.setEdicion(edicion);
 
-	urlOne = urlOne.replace("loquequieresbsucar", buscame );
-	urlTwo = urlTwo.replace("loquequieresbsucar", buscame );
-
-	ArrayList<Juego> dOne = tu_tienda.tienda(urlOne);
-	ArrayList<Juego> dTwo = instant.tienda(urlTwo);
-
+	String getInThere = "";
+	getInThere = buscame + "+" + plataforma + "+" + edicion;
 	
+	urlOne = urlOne.replace("loquequieresbsucar", getInThere );
+	urlTwo = urlTwo.replace("loquequieresbsucar", getInThere);
+
+	Precios dOne = tu_tienda.tienda(urlOne);
+	Precios dTwo = instant.tienda(urlTwo);
+	this.theMoney.add(dOne);
+	this.theMoney.add(dTwo);
+	yourGame.setMoney(theMoney);
+	
+//	for(int i = 0; i <  yourGame.money.size(); i++) {
+//		response.getWriter().print(yourGame.money.get(i).getNombre());
+//	}
+
+	request.setAttribute("yourGame", yourGame);
 	response.setContentType("text/plain;charset=UTF-8");
-	
-	for(int i = 0; i < dOne.size(); i++) {
-		Juego j = dOne.get(i);
-		response.getWriter().print(j.getNombre()+"---->"+j.getPrecio()+ System.lineSeparator());
-
+	RequestDispatcher rd = request.getRequestDispatcher("/Games.jsp");
+	try {
+		rd.forward(request, response);
+	} catch (ServletException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
 	}
 	
-	
-	response.getWriter().print(System.lineSeparator());
-	response.getWriter().print(System.lineSeparator());
 
-	
-	
-	for(int i = 0; i < dTwo.size(); i++) {
-		Juego a = dTwo.get(i);
-		response.getWriter().print(a.getNombre()+"---->"+a.getPrecio()+ System.lineSeparator());
-
-	}
-	
     
     
 	}

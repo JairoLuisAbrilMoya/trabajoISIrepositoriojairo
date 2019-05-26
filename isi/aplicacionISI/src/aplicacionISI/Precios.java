@@ -29,7 +29,7 @@ public class Precios{
 	
 	
 	
-	public String geNombre() {
+	public String getNombre() {
 		return(this.nombre);
 	}
 	
